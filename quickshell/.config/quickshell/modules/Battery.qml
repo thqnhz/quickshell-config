@@ -4,11 +4,18 @@ import "../common"
 
 ZRow {
     spacing: 8
+    property var percent: null
+
+    ZText {
+        visible: UPower.displayDevice.isLaptopBattery && parent.percent < 100
+        text: parent.percent
+    }
+
     ZText {
         visible: UPower.displayDevice.isLaptopBattery
         text: {
-            let percent = Math.round((UPower.displayDevice.percentage ?? 0) * 100);
-            let level = Math.floor(percent / 10) * 10;
+            parent.percent = Math.round((UPower.displayDevice.percentage ?? 0) * 100);
+            let level = Math.floor(parent.percent / 10) * 10;
             let map = {
                 10: "󰁺",
                 20: "󰁻",
@@ -24,6 +31,7 @@ ZRow {
             return map[level] || "󰂃";
         }
     }
+
     Splitter {
         visible: UPower.displayDevice.isLaptopBattery
     }

@@ -7,6 +7,8 @@ ZRow {
     anchors.rightMargin: 8
     spacing: 8
 
+    Weather {}
+
     Bluetooth {}
 
     Battery {}
