@@ -9,8 +9,13 @@ This config aims for a laptop with 1366x768 monitor.
 - Workspace number on the left
 - Hour clock in the middle
 - Some info on the right:
-  - Battery level
   - Bluetooth
+  - Battery level
+  - Network
+
+## Preview
+
+<img src="asset/bar.png" alt="Bar preview" />
 
 ## Disclaimer
 
