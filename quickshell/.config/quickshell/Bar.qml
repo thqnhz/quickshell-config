@@ -99,7 +99,7 @@ LazyLoader {
                         return "󰈀";
                     let active = netDevice.networks?.values?.find(n => n.connected);
                     if (!active)
-                        return "";
+                        return "󰤩";
                     let s = active.signalStrength;
                     if (s > 0.75)
                         return "󰤨";
