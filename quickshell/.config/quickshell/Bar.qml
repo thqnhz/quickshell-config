@@ -55,14 +55,10 @@ LazyLoader {
                     60: "󰁿",
                     70: "󰂀",
                     80: "󰂁",
-                    90: "󰂂"
+                    90: "󰂂",
+                    100: "󰁹"
                 };
-                if (level < 10)
-                    return "󰂃";
-                else if (level === 100)
-                    return "󰁹";
-                else
-                    return map[level];
+                return map[level] || "󰂃";
             }
         }
     }
