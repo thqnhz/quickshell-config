@@ -1,9 +1,6 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
-import Quickshell.Networking
-import Quickshell.Hyprland
-import Quickshell.Bluetooth
 import "common"
 import "modules"
 
