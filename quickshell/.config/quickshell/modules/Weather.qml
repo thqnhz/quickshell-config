@@ -1,4 +1,5 @@
 import QtQuick
+import Quickshell
 import Quickshell.Io
 import "../common"
 
@@ -66,8 +67,10 @@ ZRow {
             anchors.fill: parent
             acceptedButtons: Qt.RightButton
             onClicked: event => {
-                if (event.button === Qt.RightButton)
+                if (event.button === Qt.RightButton) {
+                    Quickshell.execDetached(["notify-send", "Refreshing weather widget"]);
                     weather.fetchWeather();
+                }
             }
         }
     }
