@@ -1,5 +1,4 @@
 import QtQuick
-import Quickshell
 import Quickshell.Io
 import "../common"
 
@@ -60,10 +59,10 @@ ZRow {
                 return "󰖗"; // Rain Patches
             if (weather.wCode === 200 || weather.wCode === 386 || weather.wCode === 389 || weather.wCode === 392)
                 return "󰖓"; // Thunderstorm
-            if (weather.wCode >= 227 && weather.wCode <= 395)
-                return ""; // Snow
             if (weather.wCode >= 263 && weather.wCode <= 377)
                 return "󰖖"; // Rain
+            if (weather.wCode >= 227 && weather.wCode <= 395)
+                return ""; // Snow
             return "󰖐"; // Default to cloud
         }
     }

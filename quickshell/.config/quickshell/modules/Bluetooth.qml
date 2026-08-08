@@ -3,7 +3,6 @@ import Quickshell.Bluetooth
 import "../common"
 
 ZRow {
-    id: bluetooth
     spacing: 8
     visible: Bluetooth.defaultAdapter.enabled
 

@@ -9,6 +9,10 @@ ZRow {
 
     Weather {}
 
+    Cpu {}
+
+    Memory {}
+
     Bluetooth {}
 
     Battery {}
