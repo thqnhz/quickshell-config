@@ -5,7 +5,6 @@ import "../common"
 
 ZRow {
     id: tray
-    spacing: 8
 
     property var visibleItems: {
         let result = [];

@@ -4,7 +4,6 @@ import "../common"
 
 ZRow {
     id: battery
-    spacing: 8
     property int percent: Math.round((UPower.displayDevice.percentage ?? 0) * 100)
     visible: UPower.displayDevice.isLaptopBattery
 

@@ -4,7 +4,6 @@ import "../common"
 
 ZRow {
     id: memory
-    spacing: 8
     visible: usedPct > 0
 
     property int usedPct: 0

@@ -4,7 +4,6 @@ import "../common"
 
 ZRow {
     id: cpu
-    spacing: 8
     visible: temp > 0
 
     property int temp: 0

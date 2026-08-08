@@ -4,7 +4,6 @@ import "../common"
 
 ZRow {
     id: weather
-    spacing: 8
 
     property string temp: "--"
     property string icon: "󰖐"
