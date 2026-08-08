@@ -3,19 +3,20 @@ import Quickshell.Services.UPower
 import "../common"
 
 ZRow {
+    id: battery
     spacing: 8
-    property var percent: null
+    property int percent: Math.round((UPower.displayDevice.percentage ?? 0) * 100)
+    property bool isLaptopBattery: UPower.displayDevice.isLaptopBattery
 
     ZText {
-        visible: UPower.displayDevice.isLaptopBattery && parent.percent < 100
-        text: parent.percent
+        visible: battery.isLaptopBattery && battery.percent < 100
+        text: battery.percent
     }
 
     ZText {
-        visible: UPower.displayDevice.isLaptopBattery
+        visible: battery.isLaptopBattery
         text: {
-            parent.percent = Math.round((UPower.displayDevice.percentage ?? 0) * 100);
-            let level = Math.floor(parent.percent / 10) * 10;
+            let level = Math.floor(battery.percent / 10) * 10;
             let map = {
                 10: "󰁺",
                 20: "󰁻",
@@ -33,6 +34,6 @@ ZRow {
     }
 
     Splitter {
-        visible: UPower.displayDevice.isLaptopBattery
+        visible: battery.isLaptopBattery
     }
 }
