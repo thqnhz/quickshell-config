@@ -3,16 +3,15 @@ import Quickshell.Bluetooth
 import "../common"
 
 ZRow {
+    id: bluetooth
     spacing: 8
-    readonly property bool btEnabled: Bluetooth.defaultAdapter.enabled
+    visible: Bluetooth.defaultAdapter.enabled
+
     ZText {
-        visible: parent.btEnabled
         text: {
             Bluetooth.defaultAdapter.devices?.values[0]?.connected ? "󰂱" : "󰂯";
         }
     }
 
-    Splitter {
-        visible: parent.btEnabled
-    }
+    Splitter {}
 }

@@ -6,15 +6,14 @@ ZRow {
     id: battery
     spacing: 8
     property int percent: Math.round((UPower.displayDevice.percentage ?? 0) * 100)
-    property bool isLaptopBattery: UPower.displayDevice.isLaptopBattery
+    visible: UPower.displayDevice.isLaptopBattery
 
     ZText {
-        visible: battery.isLaptopBattery && battery.percent < 100
+        visible: battery.percent < 100
         text: battery.percent
     }
 
     ZText {
-        visible: battery.isLaptopBattery
         text: {
             let level = Math.floor(battery.percent / 10) * 10;
             let map = {
@@ -33,7 +32,5 @@ ZRow {
         }
     }
 
-    Splitter {
-        visible: battery.isLaptopBattery
-    }
+    Splitter {}
 }
