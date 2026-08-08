@@ -4,9 +4,10 @@ import "../common"
 
 ZRow {
     id: memory
-    visible: usedPct > 0
+    visible: ramPct > 0
 
-    property int usedPct: 0
+    property int ramPct: 0
+    property int totalPct: 0
 
     Component.onCompleted: fetch()
 
@@ -16,12 +17,19 @@ ZRow {
 
     Process {
         id: reader
-        command: ["bash", "-c", `free | awk '/^Mem:/{printf "%.0f", ($3/$2)*100}'`]
+        command: ["bash", "-c", `free | awk '
+          /^Mem:/ { ram=int(($3/$2)*100+0.5) }
+          /^Swap:/ { if ($2>0) sw=int(($3/$2)*100+0.5); else sw=0 }
+          END { printf "%d %d", ram, ram+sw }'`]
         stdout: StdioCollector {
             onStreamFinished: {
-                const pct = parseInt(text.trim());
-                if (!isNaN(pct))
-                    memory.usedPct = pct;
+                const parts = text.trim().split(" ");
+                const r = parseInt(parts[0]);
+                const t = parseInt(parts[1]);
+                if (!isNaN(r))
+                    memory.ramPct = r;
+                if (!isNaN(t))
+                    memory.totalPct = t;
             }
         }
     }
@@ -35,7 +43,12 @@ ZRow {
     }
 
     ZText {
-        text: memory.usedPct
+        text: memory.ramPct
+    }
+
+    ZText {
+        text: "(" + memory.totalPct + ")"
+        visible: memory.totalPct !== memory.ramPct
     }
 
     ZText {
