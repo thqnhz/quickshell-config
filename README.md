@@ -12,6 +12,10 @@ This config aims for a laptop with 1366x768 monitor.
   - Bluetooth
   - Battery level
   - Network
+  - Memory usage
+  - CPU temperature and load
+  - Weather
+  - Tray icon (only tested with fcitx5)
 
 ## Preview
 
@@ -42,7 +46,9 @@ cd quickshell-config
 2. Kill your quickshell instances
 
 ```sh
-qs kill --all
+qs list --all
+# Get the PIDs and kill them with
+qs kill --pid <PID>
 ```
 
 3. Stow or symlink
