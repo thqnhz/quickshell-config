@@ -8,7 +8,11 @@ ZRow {
 
     ZText {
         text: {
-            Bluetooth.defaultAdapter.devices?.values[0]?.connected ? "󰂱" : "󰂯";
+            for (let d of Bluetooth.defaultAdapter.devices.values) {
+                if (d.connected)
+                    return "󰂱";
+            }
+            return "󰂯";
         }
     }
 
