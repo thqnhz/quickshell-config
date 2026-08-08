@@ -6,7 +6,7 @@ This config aims for a laptop with 1366x768 monitor.
 
 ## Features
 
-- Workspace number on the left
+- Workspace number and notification on the left
 - Hour clock in the middle
 - Some info on the right:
   - Bluetooth
@@ -16,6 +16,7 @@ This config aims for a laptop with 1366x768 monitor.
   - CPU temperature and load
   - Weather
   - Tray icon (only tested with fcitx5)
+  - Volume
 
 ## Preview
 
