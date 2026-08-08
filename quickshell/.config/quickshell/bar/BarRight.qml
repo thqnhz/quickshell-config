@@ -15,6 +15,8 @@ ZRow {
 
     Memory {}
 
+    Volume {}
+
     Bluetooth {}
 
     Battery {}
