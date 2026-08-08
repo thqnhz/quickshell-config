@@ -4,10 +4,10 @@ import Quickshell.Bluetooth
 import "../common"
 
 ZRow {
-    visible: Bluetooth.defaultAdapter.enabled
-
     ZText {
         text: {
+            if (!Bluetooth.defaultAdapter.enabled)
+                return "󰂲";
             for (let d of Bluetooth.defaultAdapter.devices.values) {
                 if (d.connected)
                     return "󰂱";
