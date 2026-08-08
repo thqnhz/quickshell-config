@@ -1,4 +1,5 @@
 import QtQuick
+import Quickshell
 import Quickshell.Networking
 import "../common"
 
@@ -23,5 +24,13 @@ ZText {
         if (s > 0.25)
             return "󰤢";
         return "󰤟";
+    }
+    MouseArea {
+        anchors.fill: parent
+        acceptedButtons: Qt.RightButton
+        onClicked: event => {
+            if (event.button === Qt.RightButton)
+                Quickshell.execDetached(["kcmshell6", "kcm_networkmanagement"]);
+        }
     }
 }

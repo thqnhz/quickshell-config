@@ -1,4 +1,5 @@
 import QtQuick
+import Quickshell
 import Quickshell.Bluetooth
 import "../common"
 
@@ -13,6 +14,14 @@ ZRow {
                     return "󰂱";
             }
             return "󰂯";
+        }
+        MouseArea {
+            anchors.fill: parent
+            acceptedButtons: Qt.RightButton
+            onClicked: event => {
+                if (event.button === Qt.RightButton)
+                    Quickshell.execDetached(["kcmshell6", "kcm_bluetooth"]);
+            }
         }
     }
 
