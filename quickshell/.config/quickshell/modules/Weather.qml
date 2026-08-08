@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Io
+import qs.config
 import "../common"
 
 ZRow {
@@ -8,6 +9,20 @@ ZRow {
 
     property string temp: "--"
     property string icon: "󰖐"
+
+    property color textColor: {
+        if (temp <= Config.coldThreshold)
+            return Config.sapphire;
+        if (temp >= Config.hotThreshold)
+            return Config.red;
+        return Config.text;
+    }
+
+    Behavior on textColor {
+        ColorAnimation {
+            duration: Config.colorAnimationDuration
+        }
+    }
 
     Component.onCompleted: fetchWeather()
 
@@ -56,13 +71,14 @@ ZRow {
     Timer {
         running: true
         repeat: true
-        interval: 600000
+        interval: Config.every10m
         triggeredOnStart: true
         onTriggered: weather.fetchWeather()
     }
 
     ZText {
-        text: weather.temp + " " + weather.icon
+        text: weather.temp + "°C " + weather.icon
+        color: weather.textColor
         MouseArea {
             anchors.fill: parent
             acceptedButtons: Qt.RightButton

@@ -1,8 +1,9 @@
 import QtQuick
+import qs.config
 
 Rectangle {
     anchors.verticalCenter: parent.verticalCenter
-    width: 1
-    implicitHeight: 12
-    color: "#585b70"
+    width: Config.splitterWidth
+    implicitHeight: Config.splitterHeight
+    color: Config.overlay2
 }

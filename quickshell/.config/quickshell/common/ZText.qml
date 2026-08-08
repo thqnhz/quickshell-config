@@ -1,8 +1,9 @@
 import QtQuick
+import qs.config
 
 Text {
-    font.family: "CaskaydiaCove Nerd Font Propo"
-    font.pixelSize: 14
-    font.weight: 600
-    color: "#cdd6f4"
+    font.family: Config.fontFamily
+    font.pixelSize: Config.fontSize
+    font.weight: Config.fontWeight
+    color: Config.text
 }

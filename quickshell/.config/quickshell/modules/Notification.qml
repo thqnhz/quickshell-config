@@ -1,23 +1,38 @@
 import QtQuick
 import Quickshell.Services.Notifications
+import qs.config
 import "../common"
 
 ZRow {
-    id: notification
+    id: notifWidget
     clip: true
-    visible: notifText.text !== ""
+    visible: active || opacity > 0
+    opacity: active ? 1 : 0
+    property bool active: false
+    Behavior on opacity {
+        NumberAnimation {
+            duration: Config.numberAnimationDuration
+        }
+    }
+    onOpacityChanged: {
+        if (opacity === 0 && !active)
+            notifText.text = "";
+    }
 
     NotificationServer {
         onNotification: notif => {
             notifText.text = notif.summary;
+            notifWidget.active = true;
             dismissTimer.restart();
         }
     }
 
     Timer {
         id: dismissTimer
-        interval: 5000
-        onTriggered: notifText.text = ""
+        interval: Config.every5s
+        onTriggered: {
+            notifWidget.active = false;
+        }
     }
 
     Splitter {

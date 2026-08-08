@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell.Io
+import qs.config
 import "../common"
 
 ZRow {
@@ -8,6 +9,21 @@ ZRow {
 
     property int temp: 0
     property double load: 0
+    property color tempColor: {
+        if (temp >= Config.cpuTempThreshold2)
+            return Config.red;
+        if (temp >= Config.cpuTempThreshold1)
+            return Config.peach;
+        if (temp >= Config.cpuTempThreshold0)
+            return Config.yellow;
+        return Config.text;
+    }
+
+    Behavior on tempColor {
+        ColorAnimation {
+            duration: Config.colorAnimationDuration
+        }
+    }
 
     Component.onCompleted: fetchTemp()
 
@@ -35,21 +51,24 @@ ZRow {
     Timer {
         running: true
         repeat: true
-        interval: 5000
+        interval: Config.every5s
         triggeredOnStart: true
         onTriggered: cpu.fetchTemp()
     }
 
     ZText {
-        text: cpu.temp
+        text: cpu.temp + "°C"
+        color: cpu.tempColor
     }
 
     ZText {
         text: "(" + cpu.load.toFixed(1) + ")"
+        color: cpu.tempColor
     }
 
     ZText {
         text: ""
+        color: cpu.tempColor
     }
 
     Splitter {}

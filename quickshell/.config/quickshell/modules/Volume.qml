@@ -1,11 +1,28 @@
 import QtQuick
 import Quickshell
 import Quickshell.Services.Pipewire
+import qs.config
 import "../common"
 
 ZRow {
-    id: volume
+    id: volumeModule
     visible: Pipewire.ready && Pipewire.defaultAudioSink
+    property color textColor: {
+        let vol = volume * 100;
+        if (vol >= Config.volumeThreshold2)
+            return Config.red;
+        if (vol >= Config.volumeThreshold1)
+            return Config.peach;
+        if (vol >= Config.volumeThreshold0)
+            return Config.yellow;
+        return Config.text;
+    }
+
+    Behavior on textColor {
+        ColorAnimation {
+            duration: Config.colorAnimationDuration
+        }
+    }
 
     PwObjectTracker {
         objects: [Pipewire.defaultAudioSink]
@@ -15,21 +32,23 @@ ZRow {
     readonly property bool muted: Pipewire.defaultAudioSink?.audio?.muted ?? false
 
     ZText {
-        text: Math.round(volume.volume * 100)
-        visible: volume.volume !== 0
+        text: Math.round(volumeModule.volume * 100)
+        visible: volumeModule.volume !== 0
+        color: volumeModule.textColor
     }
 
     ZText {
         id: volText
         text: {
-            if (volume.muted || volume.volume === 0)
+            if (volumeModule.muted || volumeModule.volume === 0)
                 return "󰝟"; // Muted
-            if (volume.volume > 0.66)
+            if (volumeModule.volume > 0.66)
                 return "󰕾"; // Loud
-            if (volume.volume > 0.33)
+            if (volumeModule.volume > 0.33)
                 return "󰖀"; // Medium
             return "󰕿"; // Low
         }
+        color: volumeModule.textColor
         MouseArea {
             anchors.fill: parent
             acceptedButtons: Qt.RightButton

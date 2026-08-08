@@ -1,59 +1,67 @@
 import QtQuick
 import Quickshell.Io
+import qs.config
 import "../common"
 
 ZRow {
     id: memory
-    visible: ramPct > 0
-
     property int ramPct: 0
-    property int totalPct: 0
 
-    Component.onCompleted: fetch()
+    Item {
+        id: warning
+        visible: memory.ramPct >= Config.ramUsageThreshold || opacity > 0
+        opacity: memory.ramPct >= Config.ramUsageThreshold ? 1 : 0
+        scale: memory.ramPct >= Config.ramUsageThreshold ? 1 : 0.75
+        implicitWidth: warnText.implicitWidth
+        implicitHeight: warnText.implicitHeight
 
-    function fetch() {
-        reader.running = true;
-    }
-
-    Process {
-        id: reader
-        command: ["bash", "-c", `free | awk '
-          /^Mem:/ { ram=int(($3/$2)*100+0.5) }
-          /^Swap:/ { if ($2>0) sw=int(($3/$2)*100+0.5); else sw=0 }
-          END { printf "%d %d", ram, ram+sw }'`]
-        stdout: StdioCollector {
-            onStreamFinished: {
-                const parts = text.trim().split(" ");
-                const r = parseInt(parts[0]);
-                const t = parseInt(parts[1]);
-                if (!isNaN(r))
-                    memory.ramPct = r;
-                if (!isNaN(t))
-                    memory.totalPct = t;
+        Behavior on opacity {
+            NumberAnimation {
+                duration: Config.numberAnimationDuration
+                easing.type: Easing.OutCubic
             }
+        }
+        Behavior on scale {
+            NumberAnimation {
+                duration: Config.numberAnimationDuration
+                easing.type: Easing.OutBack
+            }
+        }
+
+        Component.onCompleted: fetch()
+
+        function fetch() {
+            reader.running = true;
+        }
+
+        Process {
+            id: reader
+            command: ["bash", "-c", `free | awk '/^Mem:/{printf "%.0f", ($3/$2)*100}'`]
+            stdout: StdioCollector {
+                onStreamFinished: {
+                    const pct = parseInt(text.trim());
+                    if (!isNaN(pct))
+                        memory.ramPct = pct;
+                }
+            }
+        }
+
+        Timer {
+            running: true
+            repeat: true
+            interval: Config.every5s
+            triggeredOnStart: true
+            onTriggered: warning.fetch()
+        }
+
+        ZText {
+            id: warnText
+            text: "!"
+            color: Config.red
         }
     }
 
-    Timer {
-        running: true
-        repeat: true
-        interval: 5000
-        triggeredOnStart: true
-        onTriggered: memory.fetch()
+    Splitter {
+        visible: warning.visible
     }
-
-    ZText {
-        text: memory.ramPct
-    }
-
-    ZText {
-        text: "(" + memory.totalPct + ")"
-        visible: memory.totalPct !== memory.ramPct
-    }
-
-    ZText {
-        text: ""
-    }
-
-    Splitter {}
 }

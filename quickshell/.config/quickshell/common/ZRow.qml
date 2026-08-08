@@ -1,6 +1,7 @@
 import QtQuick
+import qs.config
 
 Row {
-    spacing: 8
+    spacing: Config.rowSpacing
     anchors.verticalCenter: parent.verticalCenter
 }
