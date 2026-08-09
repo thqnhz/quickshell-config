@@ -54,7 +54,7 @@ ZRow {
             acceptedButtons: Qt.RightButton
             onClicked: event => {
                 if (event.button === Qt.RightButton)
-                    Quickshell.execDetached(["kcmshell6", "kcm_pulseaudio"]);
+                    Quickshell.execDetached(["pavucontrol-qt"]);
             }
         }
     }
