@@ -2,7 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Services.Pipewire
 import qs.config
-import "../common"
+import qs.common
 
 ZRow {
     id: volumeModule
@@ -31,7 +31,11 @@ ZRow {
     readonly property real volume: Pipewire.defaultAudioSink?.audio?.volume ?? 0
     readonly property bool muted: Pipewire.defaultAudioSink?.audio?.muted ?? false
 
-    ZText {
+    ClickableText {
+        acceptedButtons: Qt.RightButton
+        onClickedAction: function (event) {
+            Quickshell.execDetached(Config.volumeSettings);
+        }
         text: {
             let v = volumeModule.volume !== 0 ? Math.round(volumeModule.volume * 100) + " " : "";
             if (volumeModule.muted || volumeModule.volume === 0)
@@ -43,23 +47,6 @@ ZRow {
             return v + "󰕿"; // Low
         }
         color: volumeModule.textColor
-        MouseArea {
-            id: mouse
-            anchors.fill: parent
-            acceptedButtons: Qt.RightButton
-            hoverEnabled: true
-            onClicked: event => {
-                if (event.button === Qt.RightButton)
-                    Quickshell.execDetached(["pavucontrol-qt"]);
-            }
-        }
-        Rectangle {
-            anchors.centerIn: parent
-            width: parent.width + Config.rowSpacing * 2
-            height: parent.height
-            opacity: mouse.containsMouse ? 0.2 : 0
-            color: Config.overlay0
-        }
     }
 
     Splitter {}

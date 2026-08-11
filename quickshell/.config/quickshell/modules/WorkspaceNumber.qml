@@ -1,9 +1,8 @@
 import QtQuick
 import Quickshell.Hyprland
-import "../common"
+import qs.common
 
-ZRow {
-    ZText {
-        text: "#" + (Hyprland.focusedWorkspace?.id ?? "")
-    }
+ClickableText {
+    acceptedButtons: Qt.LeftButton
+    text: "#" + (Hyprland.focusedWorkspace?.id ?? "")
 }

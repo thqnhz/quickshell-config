@@ -1,7 +1,7 @@
 import QtQuick
 import Quickshell.Widgets
 import Quickshell.Services.SystemTray
-import "../common"
+import qs.common
 
 ZRow {
     id: tray

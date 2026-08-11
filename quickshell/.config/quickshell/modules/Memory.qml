@@ -1,7 +1,7 @@
 import QtQuick
 import Quickshell.Io
 import qs.config
-import "../common"
+import qs.common
 
 ZRow {
     id: memory

@@ -9,7 +9,10 @@ ZRow {
 
     property string temp: "--"
     property string icon: "󰖐"
-    readonly property int nightTime: parseInt(Time.hour) >= 16 ? 1 : 0
+    readonly property int nightTime: {
+        let hour = parseInt(Time.hour, 10);
+        return hour >= 18 || hour <= 6 ? 1 : 0;
+    }
 
     property color textColor: {
         if (temp <= Config.coldThreshold)
@@ -48,7 +51,7 @@ ZRow {
             return ["󰖖", "󰖖"]; // Rain
         if (wCode >= 227 && wCode <= 395)
             return ["", ""]; // Snow
-        return ["󰖐", "󰖐"]; // Default to cloud
+        return ["󰖐", "󰼱"]; // Default to cloud
     }
 
     Process {
@@ -77,28 +80,15 @@ ZRow {
         onTriggered: weather.fetchWeather()
     }
 
-    ZText {
+    ClickableText {
+        acceptedButtons: Qt.RightButton
+        onClickedAction: function (event) {
+            Quickshell.execDetached(["notify-send", "Refreshing weather widget"]);
+            weather.fetchWeather();
+        }
+
         text: weather.temp + "°C " + weather.icon
         color: weather.textColor
-        MouseArea {
-            id: mouse
-            anchors.fill: parent
-            acceptedButtons: Qt.RightButton
-            hoverEnabled: true
-            onClicked: event => {
-                if (event.button === Qt.RightButton) {
-                    Quickshell.execDetached(["notify-send", "Refreshing weather widget"]);
-                    weather.fetchWeather();
-                }
-            }
-        }
-        Rectangle {
-            anchors.centerIn: parent
-            width: parent.width + Config.rowSpacing * 2
-            height: parent.height
-            opacity: mouse.containsMouse ? 0.2 : 0
-            color: Config.overlay0
-        }
     }
 
     Splitter {}

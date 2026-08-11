@@ -1,7 +1,7 @@
 import QtQuick
 import Quickshell.Services.Notifications
 import qs.config
-import "../common"
+import qs.common
 
 ZRow {
     id: notifWidget

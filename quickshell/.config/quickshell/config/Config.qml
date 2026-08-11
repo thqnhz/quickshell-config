@@ -51,6 +51,11 @@ Singleton {
     readonly property int volumeThreshold1: 100
     readonly property int volumeThreshold2: 120
 
+    // Commands
+    readonly property var volumeSettings: ["pavucontrol-qt"]
+    readonly property var bluetoothSettings: ["kcmshell6", "kcm_bluetooth"]
+    readonly property var networkSettings: ["kcmshell6", "kcm_networkmanagement"]
+
     // Predefined Palette (Catppuccin Mocha)
     readonly property color crust: "#11111b"
     readonly property color overlay0: "#6c7086"
