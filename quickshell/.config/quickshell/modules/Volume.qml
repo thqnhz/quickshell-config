@@ -32,30 +32,33 @@ ZRow {
     readonly property bool muted: Pipewire.defaultAudioSink?.audio?.muted ?? false
 
     ZText {
-        text: Math.round(volumeModule.volume * 100)
-        visible: volumeModule.volume !== 0
-        color: volumeModule.textColor
-    }
-
-    ZText {
-        id: volText
         text: {
+            let v = volumeModule.volume !== 0 ? Math.round(volumeModule.volume * 100) + " " : "";
             if (volumeModule.muted || volumeModule.volume === 0)
-                return "󰝟"; // Muted
+                return v + "󰝟"; // Muted
             if (volumeModule.volume > 0.66)
-                return "󰕾"; // Loud
+                return v + "󰕾"; // Loud
             if (volumeModule.volume > 0.33)
-                return "󰖀"; // Medium
-            return "󰕿"; // Low
+                return v + "󰖀"; // Medium
+            return v + "󰕿"; // Low
         }
         color: volumeModule.textColor
         MouseArea {
+            id: mouse
             anchors.fill: parent
             acceptedButtons: Qt.RightButton
+            hoverEnabled: true
             onClicked: event => {
                 if (event.button === Qt.RightButton)
                     Quickshell.execDetached(["pavucontrol-qt"]);
             }
+        }
+        Rectangle {
+            anchors.centerIn: parent
+            width: parent.width + Config.rowSpacing * 2
+            height: parent.height
+            opacity: mouse.containsMouse ? 0.2 : 0
+            color: Config.overlay0
         }
     }
 

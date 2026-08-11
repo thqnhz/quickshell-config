@@ -81,14 +81,23 @@ ZRow {
         text: weather.temp + "°C " + weather.icon
         color: weather.textColor
         MouseArea {
+            id: mouse
             anchors.fill: parent
             acceptedButtons: Qt.RightButton
+            hoverEnabled: true
             onClicked: event => {
                 if (event.button === Qt.RightButton) {
                     Quickshell.execDetached(["notify-send", "Refreshing weather widget"]);
                     weather.fetchWeather();
                 }
             }
+        }
+        Rectangle {
+            anchors.centerIn: parent
+            width: parent.width + Config.rowSpacing * 2
+            height: parent.height
+            opacity: mouse.containsMouse ? 0.2 : 0
+            color: Config.overlay0
         }
     }
 

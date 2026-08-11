@@ -53,6 +53,7 @@ Singleton {
 
     // Predefined Palette (Catppuccin Mocha)
     readonly property color crust: "#11111b"
+    readonly property color overlay0: "#6c7086"
     readonly property color overlay2: "#585b70"
     readonly property color text: "#cdd6f4"
     readonly property color red: "#f38ba8"
