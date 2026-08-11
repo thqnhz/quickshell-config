@@ -1,11 +1,6 @@
 import QtQuick
-import Quickshell
-import "../common"
+import qs.common
 
 ZText {
-    SystemClock {
-        id: clock
-        precision: SystemClock.Minutes
-    }
-    text: Qt.formatDateTime(clock.date, "hh:mm")
+    text: Time.hour + ":" + Time.minute
 }

@@ -2,13 +2,14 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 import qs.config
-import "../common"
+import qs.common
 
 ZRow {
     id: weather
 
     property string temp: "--"
     property string icon: "󰖐"
+    readonly property int nightTime: parseInt(Time.hour) >= 16 ? 1 : 0
 
     property color textColor: {
         if (temp <= Config.coldThreshold)
@@ -32,22 +33,22 @@ ZRow {
 
     function toNerdfont(wCode) {
         if (wCode === 113)
-            return "󰖙"; // Sunny
+            return ["󰖙", "󰖔"]; // Sunny
         if (wCode === 116)
-            return "󰖕"; // Partly Cloudy
+            return ["󰖕", "󰼱"]; // Partly Cloudy
         if (wCode === 119 || wCode === 122)
-            return "󰖐"; // Cloudy
+            return ["󰖐", "󰖐"]; // Cloudy
         if (wCode === 143 || wCode === 248 || wCode === 260)
-            return "󰖑"; // Fog
+            return ["󰖑", "󰖑"]; // Fog
         if (wCode >= 176 && wCode <= 185)
-            return "󰖗"; // Rain Patches
+            return ["󰖗", "󰖗"]; // Rain Patches
         if (wCode === 200 || wCode === 386 || wCode === 389 || wCode === 392)
-            return "󰖓"; // Thunderstorm
+            return ["󰖓", "󰖓"]; // Thunderstorm
         if (wCode >= 263 && wCode <= 377)
-            return "󰖖"; // Rain
+            return ["󰖖", "󰖖"]; // Rain
         if (wCode >= 227 && wCode <= 395)
-            return ""; // Snow
-        return "󰖐"; // Default to cloud
+            return ["", ""]; // Snow
+        return ["󰖐", "󰖐"]; // Default to cloud
     }
 
     Process {
@@ -60,7 +61,7 @@ ZRow {
                 try {
                     const data = JSON.parse(text);
                     weather.temp = data.temp;
-                    weather.icon = weather.toNerdfont(parseInt(data.wCode) || 113);
+                    weather.icon = weather.toNerdfont(parseInt(data.wCode) || 113)[weather.nightTime];
                 } catch (e) {
                     console.error("[Weather]", e.message);
                 }

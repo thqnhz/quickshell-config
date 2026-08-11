@@ -26,6 +26,7 @@ ZRow {
             IconImage {
                 source: modelData.icon
                 anchors.fill: parent
+                mipmap: true
             }
 
             MouseArea {
