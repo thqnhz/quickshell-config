@@ -9,7 +9,7 @@ ZRow {
         id: coffee
 
         acceptedButtons: Qt.LeftButton
-        onClickedAction: function(event) {
+        onClickedAction: function (event) {
             if (coffee.active)
                 Quickshell.execDetached(Config.stopCoffeeModeCommand);
             else
@@ -22,7 +22,7 @@ ZRow {
         Component.onCompleted: checkState()
 
         function checkState() {
-            checker.running = true
+            checker.running = true;
         }
 
         Process {
