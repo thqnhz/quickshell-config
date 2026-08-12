@@ -19,6 +19,8 @@ ZRow {
 
     Bluetooth {}
 
+    Coffee {}
+
     Battery {}
 
     Network {}

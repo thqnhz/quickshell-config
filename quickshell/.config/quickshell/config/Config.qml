@@ -55,6 +55,9 @@ Singleton {
     readonly property var volumeSettings: ["pavucontrol-qt"]
     readonly property var bluetoothSettings: ["kcmshell6", "kcm_bluetooth"]
     readonly property var networkSettings: ["kcmshell6", "kcm_networkmanagement"]
+    readonly property var stopCoffeeModeCommand: ["bash", "-c", "pkill -CONT hypridle"]
+    readonly property var startCoffeeModeCommand: ["bash", "-c", "pkill -STOP hypridle"]
+    readonly property var checkHypridleCommand: ["bash", "-c", `ps -o stat= -C hypridle | grep -q 'T' && echo stopped || echo running`]
 
     // Predefined Palette (Catppuccin Mocha)
     readonly property color crust: "#11111b"
