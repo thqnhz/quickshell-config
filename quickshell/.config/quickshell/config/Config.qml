@@ -58,7 +58,6 @@ Singleton {
     readonly property int volumePopupLevelHeight: 100
 
     // -----Commands-----
-    readonly property var volumeSettings: ["pavucontrol-qt"]
     readonly property var bluetoothSettings: ["kcmshell6", "kcm_bluetooth"]
     readonly property var networkSettings: ["kcmshell6", "kcm_networkmanagement"]
     readonly property var stopCoffeeModeCommand: ["bash", "-c", "pkill -CONT hypridle"]

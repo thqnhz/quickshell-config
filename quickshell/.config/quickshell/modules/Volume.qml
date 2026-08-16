@@ -13,7 +13,7 @@ ZRow {
             if (event.button === Qt.LeftButton)
                 volumePopup.visible = !volumePopup.visible;
             else if (event.button === Qt.RightButton)
-                Quickshell.execDetached(Config.volumeSettings);
+                VolumeControl.toggleMute();
         }
         onWheelAction: function (event) {
             const step = Config.volumeScrollStep;
