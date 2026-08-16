@@ -5,6 +5,7 @@ ZText {
     id: root
     required property int acceptedButtons
     property var onClickedAction: function (event) {}
+    property var onWheelAction: function (event) {}
 
     MouseArea {
         id: mouse
@@ -12,6 +13,7 @@ ZText {
         acceptedButtons: root.acceptedButtons
         hoverEnabled: true
         onClicked: event => root.onClickedAction(event)
+        onWheel: event => root.onWheelAction(event)
     }
     Rectangle {
         anchors.centerIn: parent

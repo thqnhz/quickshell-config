@@ -36,6 +36,15 @@ ZRow {
         onClickedAction: function (event) {
             Quickshell.execDetached(Config.volumeSettings);
         }
+        property real scrollUp: Config.reverseScrolling ? Config.volumeScrollStep : -Config.volumeScrollStep
+        property real scrollDown: Config.reverseScrolling ? -Config.volumeScrollStep : Config.volumeScrollStep
+        onWheelAction: function (event) {
+            if (!Pipewire.defaultAudioSink?.audio)
+                return;
+            const delta = event.angleDelta.y > 0 ? scrollUp : scrollDown;
+            const vol = Math.max(0, Math.min(1.5, Pipewire.defaultAudioSink.audio.volume + delta));
+            Pipewire.defaultAudioSink.audio.volume = vol;
+        }
         text: {
             let v = volumeModule.volume !== 0 ? Math.round(volumeModule.volume * 100) + " " : "";
             if (volumeModule.muted || volumeModule.volume === 0)
