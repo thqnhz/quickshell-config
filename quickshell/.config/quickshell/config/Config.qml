@@ -9,6 +9,7 @@ Singleton {
     // -----Text-----
     readonly property string fontFamily: "CaskaydiaCove Nerd Font Propo"
     readonly property int fontSize: 14
+    readonly property int fontSizePopup: 20
     readonly property int fontWeight: 600
 
     // -----Bar-----
@@ -51,6 +52,10 @@ Singleton {
     readonly property int volumeThreshold1: 100
     readonly property int volumeThreshold2: 120
     readonly property real volumeScrollStep: 0.05
+    readonly property int volumePopupWidth: 40
+    readonly property int volumePopupHeight: 160
+    readonly property int volumePopupLevelWidth: 8
+    readonly property int volumePopupLevelHeight: 100
 
     // -----Commands-----
     readonly property var volumeSettings: ["pavucontrol-qt"]
@@ -65,6 +70,7 @@ Singleton {
 
     // Predefined Palette (Catppuccin Mocha)
     readonly property color crust: "#11111b"
+    readonly property color mantle: "#181825"
     readonly property color overlay0: "#6c7086"
     readonly property color overlay2: "#585b70"
     readonly property color text: "#cdd6f4"
