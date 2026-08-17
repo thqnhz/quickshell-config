@@ -33,7 +33,7 @@ THIS CONFIG MIGHT JUST NOT WORK ON YOUR MACHINE!
 
 - A working machine
 - Is using [Hyprland](https://hypr.land)
-- Have quickshell, hyprland (ofc), hypridle, kcmutils installed
+- Have quickshell, hyprland (ofc), kcmutils installed
 - Have `CaskaydiaCove Nerd Font Propo` installed. Install it on https://nerdfonts.com or use your favorite package manager.
 
 ### Step by step
