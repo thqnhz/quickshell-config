@@ -52,7 +52,7 @@ PopupWindow {
 
         Column {
             anchors.centerIn: parent
-            spacing: Config.rowSpacing
+            spacing: Config.rowSpacing / 2
 
             ClickableText {
                 acceptedButtons: Qt.LeftButton
@@ -73,17 +73,6 @@ PopupWindow {
                 }
                 text: popup.pending === "lock" ? Config.powerConfirmIcon : "󰌾"
                 color: popup.pending === "lock" ? Config.red : Config.text
-                font.pixelSize: Config.fontSizePopup
-            }
-
-            ClickableText {
-                acceptedButtons: Qt.LeftButton
-                anchors.horizontalCenter: parent.horizontalCenter
-                onClickedAction: function (event) {
-                    popup.handleAction("logout", Config.logoutCommand);
-                }
-                text: popup.pending === "logout" ? Config.powerConfirmIcon : "󰍃"
-                color: popup.pending === "logout" ? Config.red : Config.text
                 font.pixelSize: Config.fontSizePopup
             }
 
