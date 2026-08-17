@@ -57,12 +57,21 @@ Singleton {
     readonly property int volumePopupLevelWidth: 8
     readonly property int volumePopupLevelHeight: 100
 
+    // -----Power-----
+    readonly property int powerPopupWidth: 44
+    readonly property int powerPopupHeight: 160
+    readonly property int powerConfirmMinDelay: 300
+    readonly property int powerConfirmTimeout: 3000
+    readonly property string powerConfirmIcon: "󰄬"
+
     // -----Commands-----
     readonly property var bluetoothSettings: ["kcmshell6", "kcm_bluetooth"]
     readonly property var networkSettings: ["kcmshell6", "kcm_networkmanagement"]
-    readonly property var stopCoffeeModeCommand: ["bash", "-c", "pkill -CONT hypridle"]
-    readonly property var startCoffeeModeCommand: ["bash", "-c", "pkill -STOP hypridle"]
-    readonly property var checkHypridleCommand: ["bash", "-c", `ps -o stat= -C hypridle | grep -q 'T' && echo stopped || echo running`]
+    readonly property var sleepCommand: ["bash", "-c", "systemctl suspend || loginctl suspend"]
+    readonly property var lockCommand: ["hyprlock"]
+    readonly property var logoutCommand: ["hyprctl", "dispatch", "hl.dsp.exit()"]
+    readonly property var shutdownCommand: ["systemctl", "poweroff"]
+    readonly property var restartCommand: ["systemctl", "reboot"]
 
     // -----Scrolling-----
     readonly property bool reverseScrolling: true // Make it false for trackpad behavior
