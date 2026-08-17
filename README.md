@@ -17,7 +17,7 @@ This config aims for a laptop with 1366x768 monitor.
   - Weather
   - Tray icon (only tested with fcitx5)
   - Volume
-  - Caffeine indicator (preventing the screen from turning off)
+  - Power settings
 
 ## Preview
 
