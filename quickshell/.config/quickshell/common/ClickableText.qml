@@ -18,7 +18,7 @@ ZText {
     Rectangle {
         anchors.centerIn: parent
         width: parent.width + Config.rowSpacing * 2
-        height: parent.height
+        height: parent.height + Config.rowSpacing / 2
         opacity: mouse.containsMouse ? 0.2 : 0
         color: Config.overlay0
         z: -1
