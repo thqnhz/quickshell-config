@@ -1,27 +1,24 @@
 import QtQuick
 import Quickshell
-import Quickshell.Bluetooth
-import qs.config
 import qs.common
+import qs.config
 
 ZRow {
     ClickableText {
         id: btIcon
-
-        acceptedButtons: Qt.RightButton
+        acceptedButtons: Qt.LeftButton | Qt.RightButton
         onClickedAction: function (event) {
-            Quickshell.execDetached(Config.bluetoothSettings);
+            if (event.button === Qt.LeftButton)
+                btPopup.visible = !btPopup.visible;
+            else if (event.button === Qt.RightButton)
+                Quickshell.execDetached(Config.bluetoothSettings);
         }
+        text: BluetoothControl.icon()
+    }
 
-        text: {
-            if (!Bluetooth.defaultAdapter.enabled)
-                return "󰂲";
-            for (let d of Bluetooth.defaultAdapter.devices.values) {
-                if (d.connected)
-                    return "󰂱";
-            }
-            return "󰂯";
-        }
+    BluetoothPopup {
+        id: btPopup
+        anchorItem: btIcon
     }
 
     Splitter {}

@@ -57,6 +57,9 @@ Singleton {
     readonly property int volumePopupLevelWidth: 8
     readonly property int volumePopupLevelHeight: 100
 
+    // -----Bluetooth-----
+    readonly property int bluetoothPopupWidth: 200
+
     // -----Power-----
     readonly property int powerPopupWidth: 32
     readonly property int powerPopupHeight: 110
@@ -65,8 +68,8 @@ Singleton {
     readonly property string powerConfirmIcon: "󰄬"
 
     // -----Commands-----
-    readonly property var bluetoothSettings: ["kcmshell6", "kcm_bluetooth"]
     readonly property var networkSettings: ["kcmshell6", "kcm_networkmanagement"]
+    readonly property var bluetoothSettings: ["kcmshell6", "kcm_bluetooth"]
     readonly property var sleepCommand: ["systemctl", "suspend"]
     readonly property var lockCommand: ["hyprlock"]
     readonly property var logoutCommand: ["hyprctl", "dispatch", `"hl.dsp.exit()"`]
