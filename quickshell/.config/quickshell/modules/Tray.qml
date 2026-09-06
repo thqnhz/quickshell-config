@@ -1,7 +1,10 @@
 import QtQuick
+import QtQuick.Effects
+import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.SystemTray
 import qs.common
+import qs.config
 
 ZRow {
     id: tray
@@ -19,22 +22,31 @@ ZRow {
     Repeater {
         model: tray.visibleItems
         delegate: Item {
+            id: delegateRoot
             width: 20
             height: 20
             anchors.verticalCenter: parent.verticalCenter
 
             IconImage {
+                id: trayIcon
                 source: modelData.icon
                 anchors.fill: parent
                 mipmap: true
+                layer.enabled: true
+                layer.effect: MultiEffect {
+                    saturation: -1.0
+                    colorization: 1.0
+                    colorizationColor: Config.text
+                }
             }
 
             MouseArea {
                 anchors.fill: parent
-                acceptedButtons: Qt.LeftButton | Qt.RightButton
+                acceptedButtons: Qt.LeftButton
                 onClicked: event => {
-                    if (event.button === Qt.LeftButton)
+                    if (event.button === Qt.LeftButton) {
                         modelData.activate();
+                    }
                 }
             }
         }
