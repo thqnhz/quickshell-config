@@ -40,12 +40,23 @@ ZRow {
                 }
             }
 
+            QsMenuAnchor {
+                id: menuAnchor
+                anchor.item: delegateRoot
+                menu: modelData.menu
+            }
+
             MouseArea {
+                id: mouse
                 anchors.fill: parent
-                acceptedButtons: Qt.LeftButton
+                acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
                 onClicked: event => {
                     if (event.button === Qt.LeftButton) {
                         modelData.activate();
+                    } else if (event.button === Qt.MiddleButton) {
+                        modelData.secondaryActivate();
+                    } else if (event.button === Qt.RightButton && modelData.hasMenu) {
+                        menuAnchor.open();
                     }
                 }
             }
