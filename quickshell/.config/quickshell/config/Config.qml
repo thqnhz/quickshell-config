@@ -27,7 +27,7 @@ Singleton {
     readonly property int every10m: 600000
 
     // -----Animations-----
-    readonly property int barAppearAnimationDuration: 800
+    readonly property int slidingAnimationDuration: 800
     readonly property int colorAnimationDuration: 500
     readonly property int numberAnimationDuration: 300
 

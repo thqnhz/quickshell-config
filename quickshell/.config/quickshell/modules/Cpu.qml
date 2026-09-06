@@ -2,6 +2,7 @@ import QtQuick
 import Quickshell.Io
 import qs.config
 import qs.common
+import qs.common.animation
 
 ZRow {
     id: cpu
@@ -20,9 +21,7 @@ ZRow {
     }
 
     Behavior on tempColor {
-        ColorAnimation {
-            duration: Config.colorAnimationDuration
-        }
+        ZColorAnimation {}
     }
 
     Component.onCompleted: fetchTemp()

@@ -1,6 +1,7 @@
 import QtQuick
 import qs.config
 import qs.common
+import qs.common.animation
 
 ZRow {
     visible: VolumeControl.ready
@@ -23,9 +24,7 @@ ZRow {
         color: VolumeControl.color()
 
         Behavior on color {
-            ColorAnimation {
-                duration: Config.colorAnimationDuration
-            }
+            ZColorAnimation {}
         }
     }
 

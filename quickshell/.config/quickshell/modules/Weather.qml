@@ -3,6 +3,7 @@ import Quickshell
 import Quickshell.Io
 import qs.config
 import qs.common
+import qs.common.animation
 
 ZRow {
     id: weather
@@ -23,9 +24,7 @@ ZRow {
     }
 
     Behavior on textColor {
-        ColorAnimation {
-            duration: Config.colorAnimationDuration
-        }
+        ZColorAnimation {}
     }
 
     Component.onCompleted: fetchWeather()

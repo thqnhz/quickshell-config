@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell
 import qs.config
+import qs.common.animation
 
 LazyLoader {
     loading: true
@@ -26,10 +27,7 @@ LazyLoader {
                 y: content.slideY
             }
             Behavior on slideY {
-                NumberAnimation {
-                    duration: Config.barAppearAnimationDuration
-                    easing.type: Easing.OutCubic
-                }
+                SlidingAnimation {}
             }
             Component.onCompleted: {
                 slideY = 0;
