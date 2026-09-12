@@ -2,6 +2,7 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Bluetooth
+import qs.config
 
 Singleton {
     id: root
@@ -27,6 +28,6 @@ Singleton {
     }
 
     function color() {
-        return "#cdd6f4";
+        return Config.text;
     }
 }

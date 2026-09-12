@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Effects
 import Quickshell
@@ -22,6 +23,8 @@ ZRow {
     Repeater {
         model: tray.visibleItems
         delegate: Item {
+            required property var modelData
+
             id: delegateRoot
             width: 20
             height: 20
@@ -29,7 +32,7 @@ ZRow {
 
             IconImage {
                 id: trayIcon
-                source: modelData.icon
+                source: delegateRoot.modelData.icon
                 anchors.fill: parent
                 mipmap: true
                 layer.enabled: true
@@ -43,7 +46,7 @@ ZRow {
             QsMenuAnchor {
                 id: menuAnchor
                 anchor.item: delegateRoot
-                menu: modelData.menu
+                menu: delegateRoot.modelData.menu
             }
 
             MouseArea {
@@ -52,10 +55,10 @@ ZRow {
                 acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
                 onClicked: event => {
                     if (event.button === Qt.LeftButton) {
-                        modelData.activate();
+                        delegateRoot.modelData.activate();
                     } else if (event.button === Qt.MiddleButton) {
-                        modelData.secondaryActivate();
-                    } else if (event.button === Qt.RightButton && modelData.hasMenu) {
+                        delegateRoot.modelData.secondaryActivate();
+                    } else if (event.button === Qt.RightButton && delegateRoot.modelData.hasMenu) {
                         menuAnchor.open();
                     }
                 }

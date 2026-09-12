@@ -45,7 +45,7 @@ ZRow {
 
     ZText {
         id: notifText
-        width: 1366 / 2 - 100
+        width: Config.notificationMaxWidth
         elide: Text.ElideRight
         maximumLineCount: 1
     }

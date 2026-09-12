@@ -34,6 +34,9 @@ Singleton {
     // -----Memory-----
     readonly property int ramUsageThreshold: 80
 
+    // -----Notification-----
+    readonly property int notificationMaxWidth: 583
+
     // -----Battery-----
     readonly property bool hidePercentageWhenFull: true
     readonly property int batteryThreshold: 10

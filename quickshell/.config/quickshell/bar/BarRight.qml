@@ -1,6 +1,6 @@
 import QtQuick
-import "../common"
-import "../modules"
+import qs.common
+import qs.modules
 
 ZRow {
     anchors.right: parent.right
