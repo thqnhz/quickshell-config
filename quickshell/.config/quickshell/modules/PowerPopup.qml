@@ -4,7 +4,7 @@ import qs.config
 import qs.common
 
 PopupWindow {
-    id: popup
+    id: root
     required property Item anchorItem
 
     implicitWidth: Config.powerPopupWidth
@@ -14,12 +14,32 @@ PopupWindow {
 
     property string pending: ""
     property real pendingSince: 0
+    property bool confirmReady: false
 
     onVisibleChanged: {
         if (!visible) {
-            pending = "";
-            pendingSince = 0;
+            root.pending = "";
+            root.pendingSince = 0;
+            root.confirmReady = false;
+            pendingTimer.stop();
+            confirmDelayTimer.stop();
         }
+    }
+
+    Timer {
+        id: pendingTimer
+        interval: Config.powerConfirmTimeout
+        onTriggered: {
+            root.pending = "";
+            root.pendingSince = 0;
+            root.confirmReady = false;
+        }
+    }
+
+    Timer {
+        id: confirmDelayTimer
+        interval: Config.powerConfirmMinDelay
+        onTriggered: root.confirmReady = true
     }
 
     function handleAction(action, command) {
@@ -32,15 +52,21 @@ PopupWindow {
             }
             pending = "";
             pendingSince = 0;
+            confirmReady = false;
+            pendingTimer.stop();
+            confirmDelayTimer.stop();
             return;
         }
         pending = action;
         pendingSince = now;
+        confirmReady = false;
+        pendingTimer.restart();
+        confirmDelayTimer.restart();
     }
 
     anchor {
-        item: popup.anchorItem
-        rect.y: popup.anchorItem.height + Config.rowSpacing / 2
+        item: root.anchorItem
+        rect.y: root.anchorItem.height + Config.rowSpacing / 2
         rect.x: -Config.rowSpacing / 2
     }
 
@@ -58,10 +84,10 @@ PopupWindow {
                 acceptedButtons: Qt.LeftButton
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClickedAction: function (event) {
-                    popup.handleAction("sleep", Config.sleepCommand);
+                    root.handleAction("sleep", Config.sleepCommand);
                 }
-                text: popup.pending === "sleep" ? Config.powerConfirmIcon : "󰒲"
-                color: popup.pending === "sleep" ? Config.red : Config.text
+                text: root.pending === "sleep" ? Config.powerConfirmIcon : "󰒲"
+                color: root.pending === "sleep" ? Config.red : Config.text
                 font.pixelSize: Config.fontSizePopup
             }
 
@@ -69,10 +95,10 @@ PopupWindow {
                 acceptedButtons: Qt.LeftButton
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClickedAction: function (event) {
-                    popup.handleAction("lock", Config.lockCommand);
+                    root.handleAction("lock", Config.lockCommand);
                 }
-                text: popup.pending === "lock" ? Config.powerConfirmIcon : "󰌾"
-                color: popup.pending === "lock" ? Config.red : Config.text
+                text: root.pending === "lock" ? Config.powerConfirmIcon : "󰌾"
+                color: root.pending === "lock" ? Config.red : Config.text
                 font.pixelSize: Config.fontSizePopup
             }
 
@@ -80,10 +106,10 @@ PopupWindow {
                 acceptedButtons: Qt.LeftButton
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClickedAction: function (event) {
-                    popup.handleAction("shutdown", Config.shutdownCommand);
+                    root.handleAction("shutdown", Config.shutdownCommand);
                 }
-                text: popup.pending === "shutdown" ? Config.powerConfirmIcon : "󰐥"
-                color: popup.pending === "shutdown" ? Config.red : Config.text
+                text: root.pending === "shutdown" ? Config.powerConfirmIcon : "󰐥"
+                color: root.pending === "shutdown" ? Config.red : Config.text
                 font.pixelSize: Config.fontSizePopup
             }
 
@@ -91,10 +117,10 @@ PopupWindow {
                 acceptedButtons: Qt.LeftButton
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClickedAction: function (event) {
-                    popup.handleAction("restart", Config.restartCommand);
+                    root.handleAction("restart", Config.restartCommand);
                 }
-                text: popup.pending === "restart" ? Config.powerConfirmIcon : "󰜉"
-                color: popup.pending === "restart" ? Config.red : Config.text
+                text: root.pending === "restart" ? Config.powerConfirmIcon : "󰜉"
+                color: root.pending === "restart" ? Config.red : Config.text
                 font.pixelSize: Config.fontSizePopup
             }
         }

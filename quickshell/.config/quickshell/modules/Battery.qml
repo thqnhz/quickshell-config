@@ -26,7 +26,7 @@ ZRow {
     }
 
     ZText {
-        visible: Config.hidePercentageWhenFull && battery.percent < 100
+        visible: !Config.hidePercentageWhenFull || battery.percent < 100
         text: battery.percent
     }
 

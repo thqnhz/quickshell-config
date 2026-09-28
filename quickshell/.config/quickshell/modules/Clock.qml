@@ -6,7 +6,7 @@ import qs.config
 Item {
     id: clockRoot
 
-    implicitWidth: timeText.width
+    implicitWidth: clockRoot.hovered ? dateText.width : timeText.width
     implicitHeight: timeText.height
 
     property bool hovered: false

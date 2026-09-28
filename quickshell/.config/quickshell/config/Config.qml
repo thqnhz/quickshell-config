@@ -66,7 +66,7 @@ Singleton {
     // -----Power-----
     readonly property int powerPopupWidth: 32
     readonly property int powerPopupHeight: 110
-    readonly property int powerConfirmMinDelay: 150
+    readonly property int powerConfirmMinDelay: 500
     readonly property int powerConfirmTimeout: 3000
     readonly property string powerConfirmIcon: "󰄬"
 
