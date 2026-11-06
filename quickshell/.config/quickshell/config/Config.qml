@@ -71,8 +71,8 @@ Singleton {
     readonly property string powerConfirmIcon: "󰄬"
 
     // -----Commands-----
-    readonly property var networkSettings: ["kcmshell6", "kcm_networkmanagement"]
-    readonly property var bluetoothSettings: ["kcmshell6", "kcm_bluetooth"]
+    readonly property var networkSettings: ["nm-sidebar"]
+    readonly property var bluetoothSettings: ["bm-sidebar"]
     readonly property var sleepCommand: ["systemctl", "suspend"]
     readonly property var lockCommand: ["hyprlock"]
     readonly property var logoutCommand: ["hyprctl", "dispatch", `"hl.dsp.exit()"`]
